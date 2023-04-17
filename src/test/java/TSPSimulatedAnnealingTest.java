@@ -4,9 +4,9 @@
  */
 
 import com.mycompany.tsp.TSPSimulatedAnnealing;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
+import com.mycompany.tsp.TSPSimulatedAnnealing.City;
+import com.mycompany.tsp.TSPSimulatedAnnealing.Tour;
+import java.util.ArrayList;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -17,89 +17,53 @@ import static org.junit.Assert.*;
  */
 public class TSPSimulatedAnnealingTest {
     
-      public TSPSimulatedAnnealing tspsa;
+private static final double DELTA = 0.001;
+    private static ArrayList<TSPSimulatedAnnealing.City> cities;
 
-    @Before
-    public void setUp() {
-        tspsa = new TSPSimulatedAnnealing();
-        TSPSimulatedAnnealing.numCities = 5;
-        TSPSimulatedAnnealing.cityIds = new String[] { "A", "B", "C", "D", "E" };
-        TSPSimulatedAnnealing.cityLongitudes = new double[] { 0, 1, 2, 3, 4 };
-        TSPSimulatedAnnealing.cityLatitudes = new double[] { 0, 1, 2, 3, 4 };
-        TSPSimulatedAnnealing.distances = new double[][] {
-            { 0, 1, 2, 3, 4 },
-            { 1, 0, 1, 2, 3 },
-            { 2, 1, 0, 1, 2 },
-            { 3, 2, 1, 0, 1 },
-            { 4, 3, 2, 1, 0 }
-        };
+  @BeforeClass
+  public static void setUp() {
+    cities = new ArrayList<>();
+    cities.add(new City("A", 0.0, 0.0));
+    cities.add(new City("B", 1.0, 0.0));
+    cities.add(new City("C", 0.0, 1.0));
+    cities.add(new City("D", 1.0, 1.0));
+    cities.add(new City("E", 2.0, 2.0));
+    cities.add(new City("F", 2.0, 0.0));
+  }
+
+  
+  @Test
+  public void testGetRandomIndex() {
+    int index = TSPSimulatedAnnealing.getRandomIndex(cities.size());
+   assertTrue(index >= 0 && index < cities.size());
+  }
+
+  @Test
+  public void testGetDistanceBetweenCities() {
+    City city1 = cities.get(0);
+    City city2 = cities.get(1);
+    assertEquals(111195.0, Math.round(TSPSimulatedAnnealing.Tour.getDistanceBetweenCities(city1, city2)), 0.001);
+  }
+
+  @Test
+  public void testTour() {
+    Tour tour = new Tour(cities);
+   assertEquals(981509, Math.round(tour.getDistance()), 0.001);
+  }
+
+  
+
+    @Test
+    public void testCalculateDistance() {
+        TSPSimulatedAnnealing.Tour tour = new TSPSimulatedAnnealing.Tour(cities);
+        assertEquals(981509, Math.round(tour.getDistance()), DELTA);
     }
 
     @Test
-    public void testAcceptNeighborShouldReturnTrueWhenNeighborDistanceIsSmaller() {
-        assertTrue(TSPSimulatedAnnealing.acceptNeighbor(2.0, 1.5, 100.0));
-    }
-
-
-    @Test
-    public void testAcceptNeighborShouldReturnTrueWhenNeighborDistanceIsLargerButProbabilitySucceeds() {
-        TSPSimulatedAnnealing.random.setSeed(12345);
-        assertTrue(TSPSimulatedAnnealing.acceptNeighbor(2.0, 2.5, 1.0));
-    }
-
-    @Test
-    public void testGenerateRandomSolutionShouldGenerateDifferentSolutions() {
-        TSPSimulatedAnnealing.random.setSeed(12345);
-        int[] solution1 = TSPSimulatedAnnealing.generateRandomSolution();
-        int[] solution2 = TSPSimulatedAnnealing.generateRandomSolution();
-        assertNotEquals(solution1, solution2);
-    }
-
-    @Test
-    public void testGenerateNeighborSolutionShouldGenerateDifferentSolutions() {
-        TSPSimulatedAnnealing.random.setSeed(12345);
-        int[] solution = new int[] { 0, 1, 2, 3, 4 };
-        int[] neighbor1 = TSPSimulatedAnnealing.generateNeighborSolution(solution);
-        int[] neighbor2 = TSPSimulatedAnnealing.generateNeighborSolution(solution);
-        assertNotEquals(neighbor1, neighbor2);
-    }
-
-    @Test
-    public void testCalculateTotalDistanceShouldReturnCorrectDistance() {
-        int[] solution = new int[] { 0, 1, 2, 3, 4 };
-        assertEquals(8.0, TSPSimulatedAnnealing.calculateTotalDistance(solution), 0.0);
-    }
-
-
-       @Test
-    public void testGenerateRandomSolution() {
-        int[] solution = TSPSimulatedAnnealing.generateRandomSolution();
-        assertEquals(solution.length, TSPSimulatedAnnealing.numCities);
-
-        boolean[] cityUsed = new boolean[TSPSimulatedAnnealing.numCities];
-        for (int i = 0; i < TSPSimulatedAnnealing.numCities; i++) {
-            cityUsed[solution[i]] = true;
-        }
-        for (int i = 0; i < TSPSimulatedAnnealing.numCities; i++) {
-            assertTrue(cityUsed[i]);
-        }
-    }
-
-
-    @Test
-    public void testAcceptNeighbor() {
-        double currentDistance = 10;
-        double neighborDistance = 12;
-        double temperature = 100;
-        double acceptanceProbability = Math.exp((currentDistance - neighborDistance) / temperature);
-        double[] probabilities = new double[10000];
-        int numAccepted = 0;
-        for (int i = 0; i < 10000; i++) {
-            if (TSPSimulatedAnnealing.acceptNeighbor(currentDistance, neighborDistance, temperature)) {
-                numAccepted++;
-            }
-        }
-        double actualProbability = (double) numAccepted / 10000;
-        assertEquals(acceptanceProbability, actualProbability, 0.01);
+    public void testGetDistanceBetweenCities1() {
+        TSPSimulatedAnnealing.Tour tour = new TSPSimulatedAnnealing.Tour(cities);
+        double expected = 111195;
+        double actual = Math.round(Tour.getDistanceBetweenCities(cities.get(0), cities.get(1)));
+       assertEquals(expected, actual, DELTA);
     }
 }
