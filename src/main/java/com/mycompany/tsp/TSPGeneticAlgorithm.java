@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package com.mycompany.tsp;
+package com.mycompany.psafinalproject;
 
+import com.mycompany.psafinalproject.TSPGeneticAlgorithm.City;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,17 +12,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
+//import com.mycompany.psafinalproject.City;
 /**
  *
  * @author aakashrajawat
  */
 public class TSPGeneticAlgorithm {
-    
     private static final double EARTH_RADIUS = 6371; // Earth's radius in km
     private static final int POPULATION_SIZE = 1000;
-    private static final int MAX_GENERATIONS = 500;
-    private static final double MUTATION_RATE = 0.9;
+    private static final int MAX_GENERATIONS = 700;
+    private static final double MUTATION_RATE = 0.5;
     private static final int ELITISM_COUNT = 5;
     
     private List<City> cities;
@@ -30,6 +30,32 @@ public class TSPGeneticAlgorithm {
     private double mutationRate;
     private int elitismCount;
     
+    public static class City {
+        private String name;
+        private double longitude;
+        private double latitude;
+
+        public City(String name, double longitude, double latitude) {
+            this.name = name;
+            this.longitude = longitude;
+            this.latitude = latitude;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+    }
+
+
+    
     public TSPGeneticAlgorithm(List<City> cities, int populationSize, int maxGenerations, double mutationRate, int elitismCount) {
         this.cities = cities;
         this.populationSize = populationSize;
@@ -37,6 +63,8 @@ public class TSPGeneticAlgorithm {
         this.mutationRate = mutationRate;
         this.elitismCount = elitismCount;
     }
+    
+    
     
     public List<City> solve() {
         List<Route> population = initPopulation();
@@ -54,7 +82,7 @@ public class TSPGeneticAlgorithm {
         return population;
     }
     
-    private List<City> shuffle(List<City> cities) {
+    public List<City> shuffle(List<City> cities) {
         List<City> shuffled = new ArrayList<>(cities);
         Collections.shuffle(shuffled);
         return shuffled;
@@ -120,11 +148,11 @@ public static void main(String[] args) {
     System.out.printf("Best route distance: %.2f m\n", distance*1000);
     System.out.print("Best route:");
     for (City city : solution) {
-        System.out.print(city.getName()+"->");
+        System.out.print(city.getName().substring(city.getName().length()-5)+"->"); // To print last 5 digits of crimeID hexcode
     }
 }
 
-private static List<City> readCitiesFromFile(String fileName) {
+public static List<City> readCitiesFromFile(String fileName) {
     List<City> cities = new ArrayList<>();
     boolean firstLine = true;
     
@@ -149,7 +177,7 @@ private static List<City> readCitiesFromFile(String fileName) {
     return cities;
 }
 
-private static double calculateDistance(City city1, City city2) {
+public static double calculateDistance(City city1, City city2) {
     double lat1 = Math.toRadians(city1.getLatitude());
     double lat2 = Math.toRadians(city2.getLatitude());
     double lon1 = Math.toRadians(city1.getLongitude());
@@ -172,30 +200,6 @@ private static double calculateDistance(City city1, City city2) {
     City firstCity = cities.get(0);
     totalDistance += calculateDistance(lastCity, firstCity);
     return totalDistance;
-}
-}
-
-class City {
-private String name;
-private double longitude;
-private double latitude;
-
-public City(String name, double longitude, double latitude) {
-    this.name = name;
-    this.longitude = longitude;
-    this.latitude = latitude;
-}
-
-public String getName() {
-    return name;
-}
-
-public double getLongitude() {
-    return longitude;
-}
-
-public double getLatitude() {
-    return latitude;
 }
 }
 
@@ -310,8 +314,3 @@ private void mutate(Route route) {
     }
 }
 }
-
-
-
-
-
