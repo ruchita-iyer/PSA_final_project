@@ -54,10 +54,10 @@ public class TspChristofides {
         List<City> cities = readCitiesFromCSV("/Users/aakashrajawat/Downloads/project.csv");
         List<City> tour = christofides(cities);
         double tourLength = calculateTourLength(tour)*1000;
-        System.out.format("Tour length: %.2fm %n", tourLength);
-        System.out.print("Tour: "); 
+        System.out.println("Tour length: " + tourLength + "m");
+        System.out.print("Tour: ");
         for (City c : tour) {
-            System.out.print(c.getcrimeId().substring(c.getcrimeId().length()-5) + " -> ");
+            System.out.print(c.getcrimeId() + " -> ");
         }
         
         System.out.println(tour.get(0).getcrimeId());

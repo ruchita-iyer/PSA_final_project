@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package com.mycompany.tsp;
+package com.mycompany.psafinalproject;
 
-import com.mycompany.tsp.TSPGeneticAlgorithm.City;
+import com.mycompany.psafinalproject.TSPGeneticAlgorithm.City;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,12 +12,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+//import com.mycompany.psafinalproject.City;
 /**
  *
  * @author aakashrajawat
  */
 public class TSPGeneticAlgorithm {
-    public static final double EARTH_RADIUS = 6371; // Earth's radius in km
+    private static final double EARTH_RADIUS = 6371; // Earth's radius in km
     private static final int POPULATION_SIZE = 1000;
     private static final int MAX_GENERATIONS = 700;
     private static final double MUTATION_RATE = 0.5;
@@ -73,7 +74,7 @@ public class TSPGeneticAlgorithm {
         return getBestRoute(population).getCities();
     }
     
-    public List<Route> initPopulation() {
+    private List<Route> initPopulation() {
         List<Route> population = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
             population.add(new Route(shuffle(cities)));
@@ -188,7 +189,7 @@ public static double calculateDistance(City city1, City city2) {
     return EARTH_RADIUS * c;
 }
 
- public static double calculateTotalDistance(List<City> cities) {
+ static double calculateTotalDistance(List<City> cities) {
     double totalDistance = 0;
     for (int i = 0; i < cities.size() - 1; i++) {
         City city1 = cities.get(i);
