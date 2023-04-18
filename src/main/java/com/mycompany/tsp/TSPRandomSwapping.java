@@ -17,7 +17,9 @@ import java.util.Random;
  */
 public class TSPRandomSwapping {
 // Define City class to store city details
+
     public static class City {
+
         private final String id;
         private final double latitude;
         private final double longitude;
@@ -43,7 +45,7 @@ public class TSPRandomSwapping {
                     * Math.sin(dlon / 2) * Math.sin(dlon / 2);
             double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-            return R * c*1000;
+            return R * c * 1000;
         }
 
         @Override
@@ -55,14 +57,14 @@ public class TSPRandomSwapping {
     // Read CSV file and create city objects
     private static List<City> readCities(String filename) {
         List<City> cities = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
                 if (firstLine) {
-                firstLine = false;
-                continue;
-            }
+                    firstLine = false;
+                    continue;
+                }
                 String[] fields = line.split(",");
                 String id = fields[0];
                 double lat = Double.parseDouble(fields[1]);
@@ -104,27 +106,26 @@ public class TSPRandomSwapping {
 
     // Main function to solve TSP using random swapping method
     public static void main(String[] args) {
-        String filename = "C:\\Users\\ruchi\\Downloads\\crimeActual.csv";
+        String filename = "./resources/crimeActual.csv";
         List<City> cities = readCities(filename);
 
         List<City> tour = createTour(cities);
         double bestDistance = calculateDistance(tour);
 
         int iterations = 1000; // Number of iterations
-        for (int i = 0; i < iterations; i++)
-            {
-List<City> newTour = swapCities(new ArrayList<>(tour));
-double currentDistance = calculateDistance(newTour);
-if (currentDistance < bestDistance) {
-tour = newTour;
-bestDistance = currentDistance;
-}
-}
-            // Print optimized tour and distance
-    System.out.println("Optimized Tour:");
-    for (City city : tour) {
-        System.out.println(city);
+        for (int i = 0; i < iterations; i++) {
+            List<City> newTour = swapCities(new ArrayList<>(tour));
+            double currentDistance = calculateDistance(newTour);
+            if (currentDistance < bestDistance) {
+                tour = newTour;
+                bestDistance = currentDistance;
+            }
+        }
+        // Print optimized tour and distance
+        System.out.print("Optimized Tour:");
+        for (City city : tour) {
+            System.out.print("->" + city.id.substring(city.id.length() - 5));
+        }
+        System.out.println("\nOptimized Distance: " + bestDistance + " meters");
     }
-    System.out.println("Optimized Distance: " + bestDistance);
-}
 }
