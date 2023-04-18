@@ -122,10 +122,11 @@ public class TSPRandomSwapping {
             }
         }
         // Print optimized tour and distance
-        System.out.print("Optimized Tour:");
+        System.out.print("Optimized Tour: ");
         for (City city : tour) {
-            System.out.print("->" + city.id.substring(city.id.length() - 5));
+            System.out.print(city.id.substring(city.id.length() - 5)+ "->");
         }
-        System.out.println("\nOptimized Distance: " + bestDistance + " meters");
+        System.out.print(tour.get(0).id.substring(tour.get(0).id.length() - 5));
+        System.out.format("\nTour length:: %.2f m %n", bestDistance);
     }
 }

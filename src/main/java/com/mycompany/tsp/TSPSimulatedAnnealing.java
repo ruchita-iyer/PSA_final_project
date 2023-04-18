@@ -70,12 +70,14 @@ public class TSPSimulatedAnnealing {
         }
 
         // Print the best tour
-        System.out.println("Best tour distance: " + bestTour.getDistance() + " meters");
+        //System.out.println("Best tour distance: " + bestTour.getDistance() + " meters");
+        
         System.out.print("Best tour path: ");
         for (City city : bestTour.getCities()) {
             System.out.print(city.getId().substring(city.getId().length() - 5) + " -> ");
         }
         System.out.print(bestTour.getCities().get(0).getId().substring(bestTour.getCities().get(0).getId().length() - 5));
+        System.out.format("\nTour length:: %.2f m %n", bestTour.getDistance());
     }
 
     // Helper method to read input CSV file

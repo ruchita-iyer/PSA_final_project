@@ -33,6 +33,9 @@ public class TSP2Opt {
             this.longitude = longitude;
             this.latitude = latitude;
         }
+         public String getcrimeId() {
+            return this.crimeId;
+        }
     }
     
     public static void main(String[] args) {
@@ -91,7 +94,7 @@ public class TSP2Opt {
                 }
             }
         }
-        System.out.format("Total distance: %.2fm %n", bestDistance*1000);
+        
         
         // Print out the tour and its distance
         System.out.print("Tour:");
@@ -99,8 +102,9 @@ public class TSP2Opt {
             Point point = points.get(tour.get(i));
             System.out.printf("%s-> ", point.crimeId.substring(point.crimeId.length()-5));
             //System.out.printf("Best route distance: %.2f m\n", distance*1000);
-
         }
+        //System.out.println(points.get(0).crimeId.substring(points.get(0).crimeId.length()-5));System.out.println(tour.get(0).Point.getcrimeId().substring(tour.get(0).getcrimeId().length()-5));
+        System.out.format("Tour length:: %.2f m %n", bestDistance*1000);
     }
     
     // Calculate the distance between two points on the earth's surface

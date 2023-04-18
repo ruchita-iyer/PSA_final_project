@@ -145,11 +145,13 @@ public static void main(String[] args) {
     TSPGeneticAlgorithm tspGA = new TSPGeneticAlgorithm(cities, POPULATION_SIZE, MAX_GENERATIONS, MUTATION_RATE, ELITISM_COUNT);
     List<City> solution = tspGA.solve();
     double distance = calculateTotalDistance(solution);
-    System.out.printf("Best route distance: %.2f m\n", distance*1000);
+    
     System.out.print("Best route:");
     for (City city : solution) {
         System.out.print(city.getName().substring(city.getName().length()-5)+"->"); // To print last 5 digits of crimeID hexcode
     }
+    System.out.print(solution.get(0).getName().substring(solution.get(0).getName().length()-5)+"->");
+    System.out.printf("Tour length:: %.2f m\n", distance*1000);
 }
 
 public static List<City> readCitiesFromFile(String fileName) {
