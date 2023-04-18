@@ -23,7 +23,7 @@ public class TSP2Opt {
         private static final double EARTH_RADIUS = 6371;
     
     // Class to represent a point on the earth's surface
-    private static class Point {
+    public static class Point {
         public String crimeId;
         public double longitude;
         public double latitude;
@@ -104,7 +104,7 @@ public class TSP2Opt {
     }
     
     // Calculate the distance between two points on the earth's surface
-    private static double distance(Point a, Point b) {
+    public static double distance(Point a, Point b) {
         double lat1 = Math.toRadians(a.latitude);
         double lat2 = Math.toRadians(b.latitude);
         double lon1 = Math.toRadians(a.longitude);
@@ -120,7 +120,7 @@ public class TSP2Opt {
 }
 
     // Calculate the distance of a tour
-private static double tourDistance(List<Integer> tour, double[][] distances) {
+public static double tourDistance(List<Integer> tour, double[][] distances) {
     double distance = 0;
     for (int i = 0; i < tour.size() - 1; i++) {
         distance += distances[tour.get(i)][tour.get(i + 1)];
@@ -130,7 +130,7 @@ private static double tourDistance(List<Integer> tour, double[][] distances) {
 }
 
 // Swap two edges in a tour using the 2-opt algorithm
-private static List<Integer> twoOptSwap(List<Integer> tour, int i, int j) {
+public static List<Integer> twoOptSwap(List<Integer> tour, int i, int j) {
     List<Integer> newTour = new ArrayList<Integer>(tour.subList(0, i));
     for (int k = j; k >= i; k--) {
         newTour.add(tour.get(k));
