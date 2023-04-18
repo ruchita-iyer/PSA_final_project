@@ -51,7 +51,7 @@ public class TspChristofides {
     }
     
     public static void main(String[] args) throws IOException {
-        List<City> cities = readCitiesFromCSV("/Users/aakashrajawat/Downloads/project.csv");
+        List<City> cities = readCitiesFromCSV("./resources/crimeActual.csv");
         List<City> tour = christofides(cities);
         double tourLength = calculateTourLength(tour)*1000;
         System.out.format("Tour length: %.2fm %n", tourLength);

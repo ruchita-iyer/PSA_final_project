@@ -20,7 +20,7 @@ public class TSP2Opt {
      * @param args the command line arguments
      */
     
-        private static final double EARTH_RADIUS = 6371;
+    private static final double EARTH_RADIUS = 6371;
     
     // Class to represent a point on the earth's surface
     public static class Point {
@@ -38,7 +38,7 @@ public class TSP2Opt {
     public static void main(String[] args) {
 
 
-        String filename = "/Users/aakashrajawat/Downloads/project.csv";
+        String filename = "./resources/crimeActual.csv";
         
         List<Point> points = new ArrayList<Point>();
         

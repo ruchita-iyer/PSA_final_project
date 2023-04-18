@@ -21,7 +21,7 @@ public class TspChristofidesTest {
     
         @Test
     public void testReadCitiesFromCSV() throws Exception {
-        List<TspChristofides.City> cities = TspChristofides.readCitiesFromCSV("/Users/aakashrajawat/Downloads/project.csv");
+        List<TspChristofides.City> cities = TspChristofides.readCitiesFromCSV("./resources/crimeActual.csv");
         assertNotNull(cities);
         assertEquals(585, cities.size());
 

@@ -140,7 +140,7 @@ private Route getBestRoute(List<Route> population) {
 }
 
 public static void main(String[] args) {
-    String fileName = "/Users/aakashrajawat/Downloads/project.csv";
+    String fileName = "./resources/crimeActual.csv";
     List<City> cities = readCitiesFromFile(fileName);
     TSPGeneticAlgorithm tspGA = new TSPGeneticAlgorithm(cities, POPULATION_SIZE, MAX_GENERATIONS, MUTATION_RATE, ELITISM_COUNT);
     List<City> solution = tspGA.solve();
