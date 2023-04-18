@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class TSPSimulatedAnnealing {
     // CSV file path
-    private static final String FILE_PATH = "C:\\Users\\ruchi\\Downloads\\crimeActual.csv";
+    private static final String FILE_PATH = "./resources/crimeActual.csv";
 
     // Simulated Annealing parameters
     private static final double INITIAL_TEMPERATURE = 10000.0;
